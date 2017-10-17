@@ -1,7 +1,7 @@
 const expect = require('chai').expect
-const { db, pgp } = require('../db/db_connection')
+const { db } = require('../db/db_connection')
 const { addUser } = require('../db/db_utilities.js')
-const { initDB } = require('./db/db_test_util.js')
+const { initDB, seedUsername, seedPassword } = require('./db/db_test_util.js')
 
 describe('addUser() when user does not exist', () => {
   const email = 'new@new'
@@ -10,7 +10,9 @@ describe('addUser() when user does not exist', () => {
   beforeEach('reset the database', (done) => {
     addPromise = initDB()
       .then(() => addUser(email, pass))
-      .then(() => db.one('SELECT * FROM users WHERE id=1'))
+      .then(id =>
+        db.one('SELECT * FROM users WHERE user_id = $1', id),
+      )
     done()
   })
   it('adds user when user does not exist', () =>
@@ -26,7 +28,11 @@ describe('addUser() when user does not exist', () => {
 })
 
 describe('addUser when user does exist', () => {
-  it('throws an error when user does exist', () => {
-
-  })
+  it('throws an error when user does exist', (done) =>
+    initDB()
+      .then(() => {
+        expect(addUser(seedUsername, seedPassword)).to.throw()
+        done()
+      }),
+  )
 })

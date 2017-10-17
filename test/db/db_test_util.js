@@ -1,4 +1,8 @@
-const { db, pgp } = require('../../db/db_connection')
+const { db } = require('../../db/db_connection')
+const { insertUser } = require('../../db/db_queries')
+
+const seedUsername = 'bonnie@bonnie'
+const seedPassword = 'bonnie'
 
 /**
   * Truncate the one table in the db.
@@ -9,12 +13,12 @@ const resetDB = () =>
 
 /**
   * Seed a user in the db.
-  * @returns {Promise} - Promise whose resolution is unimportant
+  * @returns {Promise} - Promise which resolves to ID of added user
   */
-const seedDB = () =>
-  db.any(`INSERT INTO USERS (email, password)
-            VALUES ($1, $2)`, ['bonnie@bonnie', 'bonnie'])
-
+const seedDB = () => {
+  console.log('starting seedDB')
+  return db.any(insertUser, [seedUsername, seedPassword])
+}
 
 /**
   * Reset and seed the db.
@@ -23,4 +27,8 @@ const seedDB = () =>
 const initDB = () =>
   resetDB().then(seedDB)
 
-module.exports = { initDB }
+module.exports = {
+  initDB,
+  seedUsername,
+  seedPassword,
+}
