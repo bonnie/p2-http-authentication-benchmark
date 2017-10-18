@@ -47,9 +47,9 @@ describe('checkUser', () => {
     expect(checkUser(seedUsername, seedPassword)).to.eventually.equal(true),
   )
   it('returns false when user exists and password is wrong', () =>
-    expect(checkUser(seedUsername, 'boogers')).to.eventually.equal(true),
+    expect(checkUser(seedUsername, 'boogers')).to.eventually.equal(false),
   )
   it('returns false when user does not exist', () =>
-    expect(checkUser('bob@bob.com', seedPassword)).to.eventually.equal(true),
+    expect(checkUser('bob@bob.com', seedPassword)).to.eventually.equal(false),
   )
 })

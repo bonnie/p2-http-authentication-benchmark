@@ -25,11 +25,9 @@ const addUser = (email, password) =>
  * @returns {Promise} - Promise resolving to true if user / pass combo is in db,
  *                      or false otherwise
  */
-const checkUser = (email, password) => {
-  return Promise.resolve('boogers')
-//   db.one('SELECT COUNT(*) FROM users WHERE email=$1 AND password=$2', [email, password])
-//     .then(count => count.count === 1)
-}
+const checkUser = (email, password) =>
+  db.one('SELECT COUNT(*) FROM users WHERE email=$1 AND password=$2', [email, password])
+    .then(count => count.count === '1')
 
 
 module.exports = {
