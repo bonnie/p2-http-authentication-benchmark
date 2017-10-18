@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "export NODE_ENV='test' && mocha",
     "db:create": "createdb httpauth && psql httpauth < db/schema.sql",
     "db:reset": "dropdb httpauth && npm run db:create"
@@ -22,7 +23,9 @@
     "body-parser": "^1.18.2",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
-    "pg-promise": "^7.0.2"
+    "nodemon": "^1.12.1",
+    "pg-promise": "^7.0.2",
+    "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
     "ajv": "^5.2.2",
