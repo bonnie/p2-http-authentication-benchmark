@@ -1,7 +1,10 @@
-const expect = require('chai').expect
+const chai = require('chai')
+const promiseExpect = require('chai-as-promised').expect
 const { db } = require('../db/db_connection')
 const { addUser } = require('../db/db_utilities.js')
 const { initDB, seedUsername, seedPassword } = require('./db/db_test_util.js')
+
+const expect = chai.expect
 
 describe('addUser() when user does not exist', () => {
   const email = 'new@new'
@@ -27,12 +30,14 @@ describe('addUser() when user does not exist', () => {
   )
 })
 
+const chaiAsPromised = require('chai-as-promised');
+
+chai.use(chaiAsPromised);
 describe('addUser when user does exist', () => {
-  it('throws an error when user does exist', (done) =>
-    initDB()
-      .then(() => {
-        expect(addUser(seedUsername, seedPassword)).to.throw()
-        done()
-      }),
+  beforeEach('initialize db', () => initDB())
+  it('throws an error when user does exist', () =>
+    expect(addUser(seedUsername, seedPassword))
+      .to.eventually.be
+      .rejectedWith(`User ${seedUsername} already exists`),
   )
 })

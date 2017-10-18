@@ -12,9 +12,9 @@ const addUser = (email, password) =>
     .then(id => id.user_id)
     .catch((err) => {
       if (err.code === '23505') { // error code for violating duplicate key constraint
-        throw new Error(`User ${email} already exists`)
+        return Promise.reject(`User ${email} already exists`)
       }
-      throw err
+      return Promise.reject('an error occurred')
     })
 
 

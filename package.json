@@ -28,6 +28,7 @@
     "ajv": "^5.2.2",
     "arrow-mocha": "^1.0.1",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
